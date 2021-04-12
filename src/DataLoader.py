@@ -16,7 +16,9 @@ data_train = MNIST(dataset, train=True, download=True)
 print(data_train)
 print(data_train[12])
 # %%
-
+# %%
+dataset =  'C:/Users/gyasi/Google Drive/Databank/MNIST/'
+# %%
 #example of a dataloader
 DataLoader(  
            dataset,
