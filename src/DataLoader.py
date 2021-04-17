@@ -10,24 +10,31 @@ opener.addheaders = [('User-agent', 'Mozilla/5.0')]
 urllib.request.install_opener(opener)
 
 # %%
+from pathlib import Path
+working = Path.cwd()
+
+working.as_uri()
+
+# %%
+dataset =  '/home/gyasis/Public/GD/Google Drive/Databank/MNIST'
+# %%
 from torchvision.datasets import MNIST
 data_train = MNIST(dataset, train=True, download=True)
 
 print(data_train)
 print(data_train[12])
 # %%
-# %%
-dataset =  'C:/Users/gyasi/Google Drive/Databank/MNIST/'
+
 # %%
 #example of a dataloader
-DataLoader(  
+`DataLoader(  
            dataset,
            batch_size=1, #number of training samples in one iteration
            shuffle=False,
            num_workers=0,
            collate_fn=None, #if merging datasets is necessary
            pin_memory=True #if you want to load into Cuda then true
-           )
+           )`
 # %%
 import matplotlib.pyplot as plt
 
@@ -37,7 +44,9 @@ random_image_label = data_train[0][1]
 plt.imshow(random_image)
 print("the labe of the image is:", random_image_label)
 # %%
-dataset =  'C:/Users/gyasi/Google Drive/Databank/MNIST/'
+import os
+import os.path
+dataset =  '/home/gyasis/Public/GD/Google Drive/Databank/MNIST'
 # %%
 # %%
 # do the same with a dataloader
@@ -60,16 +69,18 @@ for batch_idx, samples in enumerate(data_train):
 
 
 # %%
+
+
 # this checks for a gpu and loads the dataset into gpu for processing
 device = "cuda" if torch.cuda.is_available() else "cpu"
-kwarfs = {'num_workers': 1, 'pin_memory': True} if device =='cuda' else {}
+kwargs = {'num_workers': 1, 'pin_memory': True} if device =='cuda' else {}
 
 train_loader = torch.utils.data.DataLoader( 
-    torchvision.datasets.MNIST(dataset, train=True, download=True)
+    torchvision.datasets.MNIST(dataset, train=True, download=True),
     batch_size=batch_size_train, **kwargs)
 
 test_loader = torch.utils.data.DataLoader(
-    torchvision.datasets.MNIST(dataset, train=False, download=True)
+    torchvision.datasets.MNIST(dataset, train=False, download=True),
     batch_size=batch_size, **kwargs)
   
   
@@ -77,11 +88,6 @@ test_loader = torch.utils.data.DataLoader(
 # %%
 # new code with cifar
 
-import torch
-import torchvision
-import torchvision.transforms as transforms 
-import matplotlib.pyplot as plt
-import numpy as np
 
 transform = transforms.Compose([
     transforms.Resize(32),
@@ -94,7 +100,7 @@ transform = transforms.Compose([
     
 ])
 
-trainset = torchvision.datasets.CIFAR10(root='C:/Users/gyasi/Google Drive/Databank/cifar/', train=True, download=True, transform=transform)
+trainset = torchvision.datasets.CIFAR10(root='/home/gyasis/Public/GD/Google Drive/Databank/cifar/', train=True, download=True, transform=transform)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=4, shuffle=False)
 
 
