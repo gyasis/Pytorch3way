@@ -1,7 +1,7 @@
 # %%
 %load_ext autotime
 
-
+import icecream as ic
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -48,7 +48,7 @@ class MyDataset(Dataset):
     
     transform = transforms.Compose([
     transforms.Resize(1800),
-    # transforms.CenterCrop(1000),
+    transforms.CenterCrop(1000),
     transforms.ToTensor(),
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
@@ -88,14 +88,14 @@ datasetter = MyDataset(df2)
 # %%
 import torch
 from torchvision import transforms
-# transform = transforms.Compose([
-#     transforms.Resize(32),
-#     transforms.CenterCrop(32),
-#     transforms.ToTensor(),
-#     transforms.Normalize([0.5, 0.5,0.5], [0.5, 0.5, 0.5])
-# ])
+transform = transforms.Compose([
+    transforms.Resize(1800),
+    transforms.CenterCrop(1000),
+    transforms.ToTensor(),
+    transforms.Normalize([0.5, 0.5,0.5], [0.5, 0.5, 0.5])
+])
 
-batchsize = 32
+batchsize = 12
 
 freeloader = DataLoader(dataset=datasetter, 
                             batch_size=batchsize,
@@ -144,5 +144,7 @@ def show(img):
         npimg = img.numpy()
         plt.imshow(np.transpose(npimg, (1,2,0)),interpolation='nearest')
     
-show(make_grid(images)
+show(make_grid(images))
+# %%
+i 
 # %%

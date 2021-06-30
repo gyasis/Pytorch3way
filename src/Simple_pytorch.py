@@ -2,6 +2,7 @@
 %load_ext autotime 
 # %%
 print(torch.__version__)
+conda install pytorch-lightning -c conda-forge
 # %%
 import torch
 import torch.nn as nn
