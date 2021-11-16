@@ -1,8 +1,7 @@
 # %%
 %load_ext autotime 
 # %%
-print(torch.__version__)
-conda install pytorch-lightning -c conda-forge
+
 # %%
 import torch
 import torch.nn as nn
@@ -25,6 +24,8 @@ model = nn.Sequential(nn.Linear(input_units, hidden_units), \
     nn.ReLU(), \
     nn.Linear(hidden_units, output_units), \
     nn.Sigmoid())
+
+print(model)
 
 loss_function = nn.MSELoss()
 # %%
@@ -54,4 +55,29 @@ plt.show()
 
 # %%
 
-import glo
+os.getcwd()
+
+
+#getting dict after training
+
+# Print model's state_dict
+print("Model's state_dict:")
+for param_tensor in model.state_dict():
+    print(param_tensor, "\t", model.state_dict()[param_tensor].size())
+
+# Print optimizer's state_dict
+print("Optimizer's state_dict:")
+for var_name in optimizer.state_dict():
+    print(var_name, "\t", optimizer.state_dict()[var_name])
+
+
+# %%
+model2 =  nn.Sequential(nn.Linear(input_units, hidden_units), \
+    nn.ReLU(), \
+    nn.Linear(hidden_units, output_units), \
+    nn.Sigmoid())
+
+model2.load_state_dict(torch.load('../mdl/testmodel.pt'))
+print(model2)
+model2.eval()
+# %%
