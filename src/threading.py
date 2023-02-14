@@ -16,3 +16,5 @@ q = Queue()
 # getting and putting items in the queue
 q.put(1)
 q.get()
+
+def get_stats():
